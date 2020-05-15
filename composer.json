@@ -1,0 +1,34 @@
+{
+  "name": "dennzo/wordpress-helper",
+  "type": "library",
+  "description": "Useful set of wordpress helper and wrapper scripts.",
+  "keywords": [
+    "wordpress",
+    "helper",
+    "tools",
+    "wrapper"
+  ],
+  "homepage": "https://dennzo.com/",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Dennis Barlowe",
+      "email": "dennis@dennzo.com"
+    }
+  ],
+  "require": {
+    "php": "^7.2"
+  },
+  "require-dev": {
+  },
+  "autoload": {
+    "psr-4": {
+      "Dennzo\\WordpressHelper\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Dennzo\\WordpressHelper\\Test\\": "test/"
+    }
+  }
+}
