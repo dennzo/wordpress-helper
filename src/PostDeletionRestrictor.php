@@ -1,15 +1,22 @@
 <?php
 /**
- * This software belongs to Dennis Barlowe (Aschaffenburg, Germany) and is copyrighted.
+ * Wordpress Helper Tools by Dennzo
+ * Copyright (c) 2019-2020 Made
  *
- * Any unauthorized use of this software without having a valid license
- * violates the license agreement and will be prosecuted by the proper authorities.
+ * This program  is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
  *
- * Creator: dbarlowe
- * Date: 15.05.20 - 16:18
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @link https://www.dennzo.com
- * @copyright 2020 Dennis Barlowe
  */
 
 namespace Dennzo\WordpressHelper;
@@ -23,11 +30,11 @@ class PostDeletionRestrictor
 
     /**
      * PostDeletionRestrictor constructor.
-     * @param int[]|array $posts
+     * @param int[]|array $postIds An array of post ids.
      */
-    public function __construct(array $posts)
+    public function __construct(array $postIds)
     {
-        $this->restrictedPosts = array_filter($posts, 'is_int');
+        $this->restrictedPosts = array_filter($postIds, 'is_int');
 
         // Add the action when the user wants to move the post to the trash can.
         add_action(
@@ -47,12 +54,15 @@ class PostDeletionRestrictor
     }
 
     /**
+     * Do not call this function directly! Needs to be public so that the wordpress hook can access it.
+     *
      * @param int $postId
      * @return bool
      */
-    private function register(int $postId): bool
+    public function register(int $postId): bool
     {
-        if (!empty($this->restrictedPosts)) {
+
+        if (empty($this->restrictedPosts)) {
             return false;
         }
 
@@ -65,15 +75,15 @@ class PostDeletionRestrictor
 
         // Filter out everything, which is not a number.
         if (in_array($postId, $this->restrictedPosts)) {
-
             // Retrieve the post type of the current post.
             $postType = get_post_type($postId);
 
-            // Now redirect back to the current page.
-            wp_redirect(admin_url('/edit.php?post_type=' . $postType));
+            // Build the redirect url
+            $redirectUrl = admin_url('/edit.php?post_type=' . $postType);
 
             // Show an alert, so the user knows what he has done wrong.
-            echo "<script>alert(\"This page is protected against deletion.\")</script>";
+            // And redirect back to the current page.
+            echo "<script>alert('This page is protected against deletion.');window.location.href='$redirectUrl';</script>";
 
             // Unfortunately wordpress needs an exit here.
             exit();

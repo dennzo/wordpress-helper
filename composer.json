@@ -9,7 +9,7 @@
     "wrapper"
   ],
   "homepage": "https://dennzo.com/",
-  "license": "MIT",
+  "license": "GPL-3.0-or-later",
   "authors": [
     {
       "name": "Dennis Barlowe",
