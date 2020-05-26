@@ -1,7 +1,9 @@
 <?php
 /**
- * Wordpress Helper Tools by Dennzo
- * Copyright (c) 2019-2020 Made
+ * Wordpress Helper Tools
+ *
+ * @copyright 2020 - Dennzo (Dennis Barlowe)
+ * @link https://www.dennzo.com
  *
  * This program  is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -15,8 +17,6 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- *
- * @link https://www.dennzo.com
  */
 
 namespace Dennzo\WordpressHelper;

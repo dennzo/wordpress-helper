@@ -19,25 +19,19 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Dennzo\WordpressHelper\MetaFieldCreator\Field;
+namespace Dennzo\WordpressHelper\Renamer;
 
-use Dennzo\WordpressHelper\MetaFieldCreator\AbstractMetaField;
-
-class WYSIWYG extends AbstractMetaField
+class DefaultPageTemplateRenamer
 {
     /**
-     * @inheritDoc
+     * DefaultPageTemplateRenamer constructor.
+     * @param string $name The name which the template should be named in the page attributes.
+     * @param string $domain
      */
-    public function html(): void
+    public function __construct(string $name, string $domain = '')
     {
-        global $post;
-        $value = get_post_meta($post->ID, $this->metaKey, true);
-
-        wp_editor(
-            htmlspecialchars_decode($value),
-            $this->metaKey,
-            ['textarea_name' => $this->metaKey]
-        );
-        ?> <br> <?php
+        add_filter('default_page_template_title', function () use ($name, $domain) {
+            return __($name, $domain);
+        });
     }
 }

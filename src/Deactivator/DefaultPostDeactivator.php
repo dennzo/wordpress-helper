@@ -19,25 +19,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Dennzo\WordpressHelper\MetaFieldCreator\Field;
+namespace Dennzo\WordpressHelper\Deactivator;
 
-use Dennzo\WordpressHelper\MetaFieldCreator\AbstractMetaField;
-
-class WYSIWYG extends AbstractMetaField
+class DefaultPostDeactivator
 {
-    /**
-     * @inheritDoc
-     */
-    public function html(): void
+    public function __construct()
     {
-        global $post;
-        $value = get_post_meta($post->ID, $this->metaKey, true);
+        add_action('admin_menu', function () {
+            remove_menu_page('edit.php');
+        });
 
-        wp_editor(
-            htmlspecialchars_decode($value),
-            $this->metaKey,
-            ['textarea_name' => $this->metaKey]
-        );
-        ?> <br> <?php
     }
 }
