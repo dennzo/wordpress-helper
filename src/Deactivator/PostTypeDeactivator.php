@@ -37,22 +37,6 @@ class PostTypeDeactivator
                 $args['exclude_from_search'] = true;
                 $args['publicly_queryable'] = false;
                 $args['show_in_rest'] = false;
-                $args['capabilities'] = [
-                    'edit_post' => false,
-                    'read_post' => false,
-                    'delete_post' => false,
-                    'edit_posts' => false,
-                    'edit_others_posts' => false,
-                    'publish_posts' => false,
-                    'read' => false,
-                    'delete_posts' => false,
-                    'delete_private_posts' => false,
-                    'delete_published_posts' => false,
-                    'delete_others_posts' => false,
-                    'edit_private_posts' => false,
-                    'edit_published_posts' => false,
-                    'create_posts' => false,
-                ];
             }
 
             return $args;
